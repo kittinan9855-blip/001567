@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card card-glass text-white p-5 shadow-lg" style="width: 100%; max-width: 500px; border-radius: 20px;">
+        <h2 class="text-center fw-bold text-gold mb-2">สมัครสมาชิกใหม่</h2>
+        <p class="text-center text-white-50 mb-4">เข้าร่วมเป็นสมาชิก Elite วันนี้</p>
+        
+        {% if error %}
+        <div class="alert alert-danger text-center bg-danger bg-opacity-25 border-danger text-white">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label text-white-50">ชื่อ-นามสกุล</label>
+                <input type="text" name="fullname" class="form-control bg-dark text-white border-secondary" required placeholder="เช่น สมชาย ใจดี">
+            </div>
+            <div class="mb-3">
+                <label class="form-label text-white-50">Username (สำหรับล็อกอิน)</label>
+                <input type="text" name="username" class="form-control bg-dark text-white border-secondary" required placeholder="ภาษาอังกฤษเท่านั้น">
+            </div>
+            <div class="mb-3">
+                <label class="form-label text-white-50">รหัสผ่าน</label>
+                <input type="password" name="password" class="form-control bg-dark text-white border-secondary" required placeholder="••••••">
+            </div>
+            <div class="mb-4">
+                <label class="form-label text-white-50">ยืนยันรหัสผ่าน</label>
+                <input type="password" name="confirm_password" class="form-control bg-dark text-white border-secondary" required placeholder="••••••">
+            </div>
+            
+            <button type="submit" class="btn btn-glow w-100 py-3 rounded-pill fw-bold fs-5 mb-3">
+                <i class="fas fa-user-plus me-2"></i> ลงทะเบียน
+            </button>
+        </form>
+
+        <div class="text-center mt-2">
+            <a href="/login" class="text-gold text-decoration-none">
+                <i class="fas fa-sign-in-alt me-1"></i> มีบัญชีอยู่แล้ว? เข้าสู่ระบบ
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

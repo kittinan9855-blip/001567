@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            
+            <div class="card card-glass border-0 shadow-lg text-white" style="border-radius: 25px; background: rgba(10, 15, 30, 0.98);">
+                
+                <div class="card-header bg-transparent border-0 text-center pt-5 pb-0">
+                    <h1 class="fw-bold text-gold display-4 mb-2"><i class="fas fa-qrcode me-3"></i>สแกนจ่าย</h1>
+                    <span class="badge bg-warning text-dark fs-5 px-4 py-2 rounded-pill animation-pulse">
+                        <i class="fas fa-clock me-2"></i>สถานะ: รอชำระเงิน
+                    </span>
+                </div>
+                
+                <div class="card-body p-4 p-md-5">
+                    
+                    <div class="text-center mb-5">
+                        <p class="text-white-50 fs-4 mb-0">ยอดชำระทั้งสิ้น</p>
+                        <h1 class="text-white fw-bold" style="font-size: 4.5rem; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);">
+                            <span class="text-gold">฿{{ format_price(booking['price']) }}</span>
+                        </h1>
+                    </div>
+
+                    <div class="bg-dark bg-opacity-50 p-4 rounded-4 mb-4 border border-secondary">
+                        <div class="row g-3">
+                            <div class="col-12 border-bottom border-secondary pb-3">
+                                <span class="text-white-50 d-block fs-6">ห้องพัก</span>
+                                <span class="fs-3 fw-bold">{{ booking['name'] }}</span>
+                            </div>
+                            <div class="col-6">
+                                <span class="text-white-50 d-block fs-6">วันที่เช็คอิน</span>
+                                <span class="fs-4 fw-bold text-info">{{ booking['checkin_date'] }}</span>
+                            </div>
+                            <div class="col-6">
+                                <span class="text-white-50 d-block fs-6">เวลา</span>
+                                <span class="fs-4 fw-bold text-info">{{ booking['checkin_time'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-4 text-center mb-4 shadow-lg position-relative overflow-hidden mx-auto" style="max-width: 350px;">
+                        <div class="position-absolute top-0 start-0 w-100 h-2 bg-primary"></div>
+                        
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" 
+                             alt="PromptPay QR" class="img-fluid" style="width: 100%;">
+                        
+                        <div class="mt-3 text-dark">
+                            <h4 class="fw-bold mb-0">Booking GG Official</h4>
+                            <p class="text-muted fs-5">08x-xxx-xxxx (PromptPay)</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info text-center fs-6 mb-4 bg-opacity-10 border-info text-info">
+                        <i class="fas fa-info-circle me-2"></i> กรุณาโอนเงินภายใน 15 นาที
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <a href="/my_bookings" class="btn btn-glow py-3 rounded-pill fs-3 fw-bold shadow-lg">
+                            <i class="fas fa-check-circle me-2"></i> แจ้งโอนเงิน / เสร็จสิ้น
+                        </a>
+                        <a href="/my_bookings" class="btn btn-outline-light py-2 rounded-pill fs-6 text-white-50">
+                            ไว้จ่ายทีหลัง (ไปหน้าการเดินทาง)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .animation-pulse {
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 193, 7, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
+    }
+</style>
+{% endblock %}

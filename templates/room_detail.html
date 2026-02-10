@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5">
+    
+    <a href="/" class="btn btn-outline-light mb-4 rounded-pill px-4 fs-5">
+        <i class="fas fa-arrow-left me-2"></i> ย้อนกลับ
+    </a>
+
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 20px;">
+                <div id="roomCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        {% for img in images %}
+                        <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="{{ loop.index0 }}" class="{{ 'active' if loop.index0 == 0 else '' }}"></button>
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-inner">
+                        {% for img in images %}
+                        <div class="carousel-item {{ 'active' if loop.index0 == 0 else '' }}">
+                            <img src="{{ img }}" class="d-block w-100" style="height: 550px; object-fit: cover;">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon p-4 bg-dark rounded-circle bg-opacity-50"></span></button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next"><span class="carousel-control-next-icon p-4 bg-dark rounded-circle bg-opacity-50"></span></button>
+                </div>
+            </div>
+
+            <div class="mt-4 p-5 card-glass rounded-4">
+                <h1 class="text-gold fw-bold mb-4 display-5">{{ room['name'] }}</h1>
+                
+                <div class="d-flex align-items-center mb-5 text-white-50 fs-5">
+                    <span class="me-4 d-flex align-items-center">
+                        <i class="fas fa-star me-2" style="color: #ffd700; filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8)); font-size: 1.4em;"></i>
+                        <span class="text-white fw-bold fs-4 me-2">{{ room['rating'] }}</span> 
+                        <span class="small">(ยอดเยี่ยม)</span>
+                    </span>
+                    <span class="me-4 d-flex align-items-center">
+                        <i class="fas fa-map-marker-alt text-danger me-2"></i> ทำเลดีเยี่ยม
+                    </span>
+                    <span class="d-flex align-items-center">
+                        <i class="fas fa-wifi text-info me-2"></i> ฟรี Wi-Fi
+                    </span>
+                </div>
+
+                <h3 class="fw-bold text-white mb-3">รายละเอียด</h3>
+                <p class="text-light fs-4" style="line-height: 1.8;">{{ room['description'] }}</p>
+                <hr class="border-secondary my-5">
+                
+                <h3 class="fw-bold text-white mb-4">สิ่งอำนวยความสะดวก</h3>
+                <div class="d-flex flex-wrap gap-3">
+                    {% for item in facilities %}
+                    <span class="badge bg-dark border border-secondary text-white p-3 px-4 rounded-pill fs-6 d-flex align-items-center">
+                        <i class="fas fa-check-circle me-2" style="color: #ffd700; filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.6)); font-size: 1.2em;"></i> 
+                        {{ item }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card card-glass border-0 p-4 shadow-lg sticky-top text-white" style="top: 100px; border-radius: 20px; background-color: rgba(20, 20, 20, 0.9);">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fs-4 fw-bold text-white-50">ราคาเริ่มต้น</span>
+                    <div class="text-end">
+                        <span class="display-5 fw-bold text-white">฿{{ format_price(room['price']) }}</span>
+                        <small class="text-white-50 fs-5">/คืน</small>
+                    </div>
+                </div>
+
+                <hr class="border-light opacity-25 my-4">
+
+                <div class="alert alert-info bg-opacity-10 border-info text-info mb-4">
+                    <i class="fas fa-info-circle me-2"></i> กดปุ่มด้านล่างเพื่อเลือกวันเข้าพัก
+                </div>
+
+                {% if session.get('user_id') %}
+                    <a href="/booking_form/{{ room['id'] }}" class="btn btn-glow w-100 py-3 rounded-pill fs-4 fw-bold">
+                        <i class="fas fa-calendar-check me-2"></i> จองห้องพักนี้
+                    </a>
+                {% else %}
+                    <a href="/login" class="btn btn-outline-gold w-100 py-3 mt-2 rounded-pill fs-5">
+                        <i class="fas fa-lock me-2"></i> เข้าสู่ระบบเพื่อจอง
+                    </a>
+                {% endif %}
+
+                <div class="mt-4 text-center text-white-50">
+                    <p class="mb-1"><i class="fas fa-shield-alt text-success me-1"></i> จองปลอดภัย 100%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

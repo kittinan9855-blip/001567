@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: booking-gg-elite
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app

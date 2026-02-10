@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5">
+    
+    <div class="d-flex align-items-center mb-5">
+        <i class="fas fa-suitcase-rolling text-gold display-4 me-3"></i>
+        <div>
+            <h1 class="fw-bold text-white mb-0">การเดินทางของฉัน</h1>
+            <p class="text-white-50 fs-5 mb-0">จัดการการจองและดูสถานะการชำระเงิน</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for row in bookings %}
+        <div class="col-12">
+            <div class="card card-glass border-0 shadow-lg overflow-hidden" style="border-radius: 20px; background: rgba(20, 25, 40, 0.9);">
+                <div class="row g-0">
+                    
+                    <div class="col-md-4 position-relative">
+                        <img src="{{ row['image_url'] }}" class="img-fluid h-100 w-100" style="object-fit: cover; min-height: 250px;" alt="Room Image">
+                        <div class="position-absolute top-0 start-0 bg-gold text-dark fw-bold px-3 py-1 rounded-end mt-3">
+                            Booking ID: #{{ row['id'] }}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <div class="card-body p-4 d-flex flex-column h-100 justify-content-between">
+                            
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h2 class="card-title fw-bold text-white mb-1">{{ row['name'] }}</h2>
+                                    <span class="text-white-50"><i class="fas fa-map-marker-alt me-2 text-danger"></i>ทำเลดีเยี่ยม • สิ่งอำนวยความสะดวกครบ</span>
+                                </div>
+                                <div class="text-end">
+                                    <h2 class="text-gold fw-bold mb-0">฿{{ format_price(row['price']) }}</h2>
+                                    <small class="text-white-50">ราคาสุทธิ</small>
+                                </div>
+                            </div>
+
+                            <hr class="border-secondary opacity-50">
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-sm-6">
+                                    <div class="bg-dark bg-opacity-50 p-3 rounded-3 border border-secondary">
+                                        <small class="text-white-50 d-block mb-1">📅 วันที่เช็คอิน</small>
+                                        <span class="fs-4 fw-bold text-white">{{ row['checkin_date'] }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="bg-dark bg-opacity-50 p-3 rounded-3 border border-secondary">
+                                        <small class="text-white-50 d-block mb-1">⏰ เวลาเข้าพัก</small>
+                                        <span class="fs-4 fw-bold text-white">{{ row['checkin_time'] }} น.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center bg-black bg-opacity-25 p-3 rounded-pill">
+                                
+                                <div class="d-flex align-items-center ps-2">
+                                    <div class="rounded-circle bg-success d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                        <i class="fas fa-check text-white fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <span class="d-block text-white-50 small" style="line-height: 1;">สถานะ</span>
+                                        <span class="text-success fw-bold fs-5">ชำระเงินเรียบร้อย</span>
+                                    </div>
+                                </div>
+
+                                <a href="/cancel_my_booking/{{ row['id'] }}" 
+                                   class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold hover-scale"
+                                   onclick="return confirm('คุณต้องการยกเลิกการจองนี้ใช่หรือไม่? (เงินจะไม่ถูกโอนคืนทันที)');">
+                                    <i class="fas fa-times me-2"></i>ยกเลิกการจอง
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-bed text-white-50 display-1"></i>
+            </div>
+            <h3 class="text-white fw-bold">คุณยังไม่มีการจองที่พัก</h3>
+            <p class="text-white-50 mb-4">เริ่มวางแผนการเดินทางครั้งต่อไปของคุณได้เลย</p>
+            <a href="/" class="btn btn-glow rounded-pill px-5 py-3 fs-5 fw-bold">ค้นหาที่พัก</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .hover-scale { transition: transform 0.2s; }
+    .hover-scale:hover { transform: scale(1.05); background-color: #dc3545; color: white; }
+</style>
+{% endblock %}

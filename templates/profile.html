@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card card-glass text-white shadow-lg" style="border-radius: 20px;">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <div class="bg-gold text-dark rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h2 class="fw-bold text-white">ข้อมูลส่วนตัว</h2>
+                    </div>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label text-white-50">Username</label>
+                            <input type="text" class="form-control bg-dark text-white-50 border-secondary" value="{{ user['username'] }}" readonly>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label text-white-50">ชื่อ-นามสกุล</label>
+                            <input type="text" name="fullname" class="form-control bg-dark text-white border-secondary" value="{{ user['fullname'] }}">
+                        </div>
+                        <button type="submit" class="btn btn-glow w-100 rounded-pill mb-3">บันทึกชื่อใหม่</button>
+                    </form>
+
+                    <a href="/change_password" class="btn btn-outline-light w-100 rounded-pill">
+                        <i class="fas fa-key me-2"></i>เปลี่ยนรหัสผ่าน
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

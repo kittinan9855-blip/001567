@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card card-glass text-white p-5 shadow-lg" style="width: 100%; max-width: 500px; border-radius: 20px;">
+        <h2 class="text-center fw-bold text-gold mb-4">เข้าสู่ระบบ Booking GG</h2>
+        
+        {% if error %}
+        <div class="alert alert-danger text-center bg-danger bg-opacity-25 border-danger text-white">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label text-white-50">Username (ชื่อผู้ใช้)</label>
+                <input type="text" name="username" class="form-control bg-dark text-white border-secondary py-2" required placeholder="admin หรือ ชื่อที่คุณสมัคร">
+            </div>
+            <div class="mb-4">
+                <label class="form-label text-white-50">Password (รหัสผ่าน)</label>
+                <input type="password" name="password" class="form-control bg-dark text-white border-secondary py-2" required placeholder="••••••">
+            </div>
+            <button type="submit" class="btn btn-glow w-100 py-3 rounded-pill fw-bold fs-5 mb-3">เข้าสู่ระบบ</button>
+        </form>
+
+        <hr class="border-secondary">
+        
+        <div class="text-center">
+            <p class="text-white-50 mb-2">ยังไม่มีบัญชีใช่ไหม?</p>
+            <a href="/register" class="btn btn-outline-light w-100 rounded-pill py-2">สมัครสมาชิกใหม่</a>
+        </div>
+        
+        <div class="text-center mt-3">
+             <small class="text-white-50 fst-italic">* สำหรับ Admin ใช้รหัสที่ระบบสร้างให้</small>
+        </div>
+    </div>
+</div>
+{% endblock %}

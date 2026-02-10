@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="fas fa-user-shield text-warning"></i> ระบบจัดการการจอง</h2>
+    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Admin Mode</span>
+</div>
+
+<div class="card shadow border-0">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>รูปห้อง</th>
+                <th>ผู้จอง</th>
+                <th>ห้องพัก</th>
+                <th>ราคา</th>
+                <th>เช็คอิน</th>
+                <th>จัดการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in bookings %}
+            <tr>
+                <td>#{{ row['id'] }}</td>
+                <td><img src="{{ row['image_url'] }}" width="60" class="rounded"></td>
+                <td class="fw-bold">{{ row['fullname'] }}</td>
+                <td class="text-primary">{{ row['name'] }}</td>
+                <td class="text-danger fw-bold">฿{{ row['price'] }}</td>
+                <td>{{ row['checkin_date'] }}</td>
+                <td>
+                    <a href="/admin/cancel/{{ row['id'] }}" class="btn btn-outline-danger btn-sm rounded-pill" onclick="return confirm('ยืนยันลบ?');">ยกเลิก</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="7" class="text-center py-4">ยังไม่มีข้อมูล</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
