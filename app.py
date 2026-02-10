@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
-from datetime 
-import timedelta
-import os
+from datetime import datetime, timedelta
 import subprocess
 
 # เช็กว่าถ้ายังไม่มีไฟล์ฐานข้อมูล ให้รันสร้างใหม่ทันที
