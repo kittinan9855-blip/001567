@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 from datetime import datetime, timedelta
-import subprocess
+import os            # <--- ต้องมีบรรทัดนี้ครับ!
+import subprocess    # <--- ต้องมีบรรทัดนี้ด้วย!
 
 # เช็กว่าถ้ายังไม่มีไฟล์ฐานข้อมูล ให้รันสร้างใหม่ทันที
 if not os.path.exists('database.db'):
@@ -216,4 +217,6 @@ def cancel_booking(id):
     return redirect(url_for('admin_dashboard'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # บรรทัดนี้สำคัญมากสำหรับ Render
+    port = int(os.environ.get("PORT", 5000)) 
+    app.run(host='0.0.0.0', port=port)
